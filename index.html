@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+  =========================================================================
+  صفحة خطوبة ابرام & ميرنا
+  -------------------------------------------------------------------------
+  ملاحظة مهمة للتعديل:
+  - كل النصوص موجودة هنا في الـ HTML بشكل مباشر، فلو حبيت تغيّر أي كلمة
+    (الاسم، التاريخ، الساعة...) دوّر عليها هنا وغيّرها زي ما إنت عايز.
+  - في أول الصفحة كتبت "ابرام & ميرنا" ثم "ابرام & ميرنا"، وحدّت الاسم في كل
+    مكان ليكون "ابرام & ميرنا" (العريس ابرام، العروس ميرنا) عشان الصفحة تبقى
+    متسقة. لو الاسم صح "ابرام & ميرنا" بدّل النصوص اللي فيها class="couple-name".
+  - الصور والأغنية مش مرفوعة، حط ملفاتك في مجلد assets بنفس الأسماء دي:
+      assets/song.mp3      -> أغنية الخطوبة
+      assets/couple.jpg    -> صورة العروسين
+      assets/hall.jpg      -> صورة القاعة
+  - رابط الخريطة تقدر تغيّره من داخل js/main.js (متغيّر GOOGLE_MAPS_URL).
+  =========================================================================
+-->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خطوبة ابرام & ميرنا</title>
+
+  <!-- خطوط عربية: خط كاليجرافي للعناوين + خط حديث ومريح للنصوص -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- =====================================================================
+       طبقة البتلات المتساقطة (خلفية ثلاثية الأبعاد تظهر طول الوقت خلف كل شيء)
+       بيتم توليد البتلات ديناميكيًا من js/main.js داخل هذا العنصر
+  ===================================================================== -->
+  <div class="petals-layer" id="petalsLayer" aria-hidden="true"></div>
+
+  <!-- =====================================================================
+       شاشة الغلاف (Cover) — هي أول حاجة يشوفها الضيف
+       ثابتة فوق كل الصفحة لحد ما يدوس "ابدأ"
+  ===================================================================== -->
+  <section class="cover" id="cover">
+    <div class="cover-content">
+      <p class="cover-eyebrow">بكل حب وسعادة</p>
+
+      <h1 class="couple-name cover-names">
+        <span>ابرام</span>
+        <span class="amp">&amp;</span>
+        <span>ميرنا</span>
+      </h1>
+
+      <!-- ديفايدر: خط أفقي نصه يتحول لقلب -->
+      <div class="heart-divider" aria-hidden="true">
+        <svg viewBox="0 0 300 40" class="heart-divider__svg">
+          <line x1="0" y1="20" x2="115" y2="20" class="hd-line" />
+          <path d="M150 32
+                   C 138 20, 122 14, 122 5
+                   C 122 -2, 132 -2, 138 4
+                   C 141 7, 144 10, 150 16
+                   C 156 10, 159 7, 162 4
+                   C 168 -2, 178 -2, 178 5
+                   C 178 14, 162 20, 150 32 Z"
+                class="hd-heart" />
+          <line x1="185" y1="20" x2="300" y2="20" class="hd-line" />
+        </svg>
+      </div>
+
+      <p class="cover-date">20 / 9 / 2026</p>
+
+      <button class="start-btn" id="startBtn" type="button">
+        ابدأ
+      </button>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       المحتوى الأساسي — يبقى مخفي (opacity:0) لحد ما يدوس المستخدم "ابدأ"
+       main.js بيضيف كلاس "revealed" على body عشان يظهر ده
+  ===================================================================== -->
+  <main class="site" id="site">
+
+    <!-- ================= قسم دعوة الخطوبة ================= -->
+    <section class="section invitation" id="invitation">
+      <div class="frame-soft">
+        <p class="tagline">يسرّنا أن نعلن عن</p>
+        <h2 class="section-title">حفل خطوبه</h2>
+
+        <h3 class="couple-name invitation-names">
+          <span>ابرام</span>
+          <span class="amp">&amp;</span>
+          <span>ميرنا</span>
+        </h3>
+
+        <div class="role-labels">
+          <span>العريس</span>
+          <span class="role-sep">|</span>
+          <span>العروس</span>
+        </div>
+
+        <div class="heart-divider heart-divider--small" aria-hidden="true">
+          <svg viewBox="0 0 300 40" class="heart-divider__svg">
+            <line x1="0" y1="20" x2="115" y2="20" class="hd-line" />
+            <path d="M150 32
+                     C 138 20, 122 14, 122 5
+                     C 122 -2, 132 -2, 138 4
+                     C 141 7, 144 10, 150 16
+                     C 156 10, 159 7, 162 4
+                     C 168 -2, 178 -2, 178 5
+                     C 178 14, 162 20, 150 32 Z"
+                  class="hd-heart" />
+            <line x1="185" y1="20" x2="300" y2="20" class="hd-line" />
+          </svg>
+        </div>
+
+        <p class="invite-text">
+          وبهذه المناسبة السعيدة<br />
+          نتشرف بدعوتكم لمشاركتنا<br />
+          فرحتنا واحتفالنا بهذه اللحظة المميزة<br />
+          وجودكم يسعدنا ويكمل فرحتنا 🤍
+        </p>
+
+        <p class="invite-datetime">
+          وذلك يوم الأحد الموافق <strong>20/9/2026</strong><br />
+          في تمام الساعة <strong>7 مساءً</strong>
+        </p>
+        
+        <p class="invite-mandatory">
+          و الحضور إلزامي مش اختياري 😄
+          
+        </p>
+        <p class="invite-mandatory">
+          علشان فرحتنا مش هتكمل غير بيكم 🤍
+        </p>
+
+        <p class="invite-closing">
+          بانتظاركم لنحتفل معًا ببداية أجمل حكاية<br />
+          عقبال عندكم جميعًا
+        </p>
+      </div>
+
+      <!-- سهم يلمّح للضيف إن فيه محتوى تحت (تقويم/صور) -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ================= قسم التقويم (كالندر سبتمبر) ================= -->
+    <section class="section calendar-section" id="calendarSection">
+      <p class="tagline">علّم يومك</p>
+      <h2 class="section-title">موعد الفرحة</h2>
+
+      <!-- الإطار الذهبي حوالين التقويم -->
+      <div class="calendar-gold-frame">
+        <div class="calendar-card" id="calendarCard">
+          <div class="calendar-header">
+            <span class="calendar-month" id="calendarMonthLabel">سبتمبر</span>
+            <span class="calendar-year">2026</span>
+          </div>
+          <!-- أسماء أيام الأسبوع + شبكة الأيام بيتولّدوا من main.js -->
+          <div class="calendar-weekdays" id="calendarWeekdays"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+      </div>
+
+      <button class="add-to-calendar-btn" id="addToCalendarBtn" type="button">
+        + أضف الموعد لتقويمك
+      </button>
+    </section>
+
+    <!-- ================= قسم صورة العروسين ================= -->
+    <section class="section photo-section" id="photoSection">
+      <p class="tagline">لحظتهم المميزة</p>
+      <h2 class="section-title">ابرام &amp; ميرنا</h2>
+
+      <div class="photo-frame" id="photoFrame">
+        <!-- استبدل الصورة دي بصورة العروسين الحقيقية في assets/couple.jpg -->
+        <img src="assets/couple0.jpg" alt="صورة العريس ابرام والعروسة ميرنا" />
+      </div>
+    </section>
+
+    <!-- ================= قسم مكان القاعة ================= -->
+    <section class="section hall-section" id="hallSection">
+      <p class="tagline">هنفرح مع بعض هنا</p>
+      <h2 class="section-title">مكان الاحتفال</h2>
+
+      <!-- عنصر "الشباك": بيتفتح Google Maps لما تدوس عليه -->
+      <button class="hall-window" id="hallWindow" type="button" aria-label="افتح موقع القاعة على خرائط جوجل">
+        <!-- استبدل الصورة دي بصورة القاعة الحقيقية في assets/hall.jpg -->
+        <img src="assets/hall.jpg" alt="صورة قاعة الاحتفال" class="hall-window__img" />
+        <span class="hall-window__pane"></span>
+        <span class="hall-window__caption">
+          📍 اضغط لمعرفة الموقع على الخريطة
+        </span>
+      </button>
+
+      <p class="footer-note">في انتظاركم بكل شوق 🤍</p>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       عنصر الصوت (الأغنية) — مخفي تمامًا، بيتشغل تلقائيًا بعد الضغط على "ابدأ"
+       controls محذوفة عشان مايظهرش أي تايم لاين، بس هنعرض Music Visualizer بدلًا منه
+  ===================================================================== -->
+  <audio id="bgMusic" src="assets/song.mp3" loop preload="auto"></audio>
+
+  <!-- Music Visualizer صغير في أسفل يمين الشاشة -->
+  <div class="visualizer-wrap" id="visualizerWrap" aria-hidden="true">
+    <canvas id="visualizerCanvas" width="120" height="48"></canvas>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
