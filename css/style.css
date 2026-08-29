@@ -528,7 +528,7 @@ body.revealed .cover {
   opacity: 0;
   transition: bottom 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms;
   pointer-events: none;
-  cursor: default;
+  cursor: pointer;
 }
 
 /* Reveal caption when the page is revealed or on hover */
