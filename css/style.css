@@ -516,7 +516,8 @@ body.revealed .cover {
 }
 .hall-window__caption {
   position: absolute;
-  bottom: 0;
+  /* start slightly lower than the visible area so it can slide up */
+  bottom: -20px;
   right: 0;
   left: 0;
   padding: 12px 10px;
@@ -524,6 +525,38 @@ body.revealed .cover {
   color: var(--color-white);
   font-size: 14px;
   font-weight: 700;
+  opacity: 0;
+  transition: bottom 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Reveal caption when the page is revealed or on hover */
+body.revealed .hall-window__caption,
+.hall-window:hover .hall-window__caption {
+  bottom: 0;
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer; /* looks interactive */
+  text-decoration: underline dotted rgba(255,255,255,0.85);
+  text-underline-offset: 6px;
+}
+
+/* gentle bobbing to signal interactivity — run on reveal (no hover required) */
+@keyframes caption-bob {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Apply bobbing when the page is revealed, or also on hover */
+body.revealed .hall-window__caption,
+.hall-window:hover .hall-window__caption {
+  animation: caption-bob 1100ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hall-window__caption { transition: none; animation: none; bottom: 0; opacity: 1; }
 }
 
 .footer-note {
